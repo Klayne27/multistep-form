@@ -18,7 +18,10 @@ function PlanList({plan}) {
         key={plan.id}
       >
         <div className="grid grid-cols-1 justify-between h-38 cursor-pointer">
-          <img src={`./icon-${plan.name}.svg`} />
+          <div>
+            <img src={`./icon-${plan.name}.svg`} />
+            <p className="text-sm text-[#9699ab]">{plan.description}</p>
+          </div>
           <div className="self-end">
             <h1 className="text-[#02295a] font-bold">{plan.name}</h1>
             {billingCycle === "Monthly" && (

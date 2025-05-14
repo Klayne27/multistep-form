@@ -16,9 +16,9 @@ const initialState = {
     phoneNumber: null,
   },
   plans: [
-    { id: 1, name: "Basic", monthlyPrice: 19, yearlyPrice: 190 },
-    { id: 2, name: "Advanced", monthlyPrice: 24, yearlyPrice: 240 },
-    { id: 3, name: "Pro", monthlyPrice: 29, yearlyPrice: 290 },
+    { id: 1, name: "Basic", description: "Simple friend", monthlyPrice: 19, yearlyPrice: 190 },
+    { id: 2, name: "Advanced", description: "Best friend", monthlyPrice: 24, yearlyPrice: 240 },
+    { id: 3, name: "Pro", description: "Boyfriend", monthlyPrice: 29, yearlyPrice: 290 },
   ],
   addOns: [
     {
