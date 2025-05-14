@@ -41,7 +41,7 @@ function PersonalInfo() {
         value={phoneNumber}
         onChange={handleChange}
         label="Phone Number"
-        placeholder="e.g. +1 234 567 890"
+        placeholder="e.g. 1 234 567 890"
         error={personalInfoErrors?.phoneNumber}
       />
     </div>
