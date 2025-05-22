@@ -1,6 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
-import { onChange } from "../../slices/formSlice";
+import { onChange, setPersonalInfoErrors } from "../../slices/formSlice";
 import InputFields from "./InputFields";
+import { validatePersonalInfoFields } from "../../utils/errorHelpers";
 
 
 function PersonalInfo() {
@@ -8,8 +9,20 @@ function PersonalInfo() {
   const dispatch = useDispatch();
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    dispatch(onChange({ field: name, value: value }));
+    const { name: fieldName , value } = e.target;
+    dispatch(onChange({ field: fieldName, value: value }));
+
+    const currentInfo = {
+      name: fieldName === "name" ? value : name,
+      email: fieldName === "email" ? value : email,
+      phoneNumber: fieldName === "phoneNumber" ? value : phoneNumber,
+    };
+
+    const newErrors = validatePersonalInfoFields(currentInfo);
+
+    dispatch(
+      setPersonalInfoErrors({ ...personalInfoErrors, [fieldName]: newErrors[fieldName] })
+    );
   };
 
   return (

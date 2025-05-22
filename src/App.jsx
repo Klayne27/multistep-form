@@ -19,8 +19,7 @@ function App() {
   };
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-[#dce8f8]">
-     
+    <div className="flex justify-center items-center min-h-screen bg-[#bfe2fd]">
       <div className="grid grid-cols-[1fr_2fr] w-[1000px] justify-center p-4 bg-white rounded-xl">
         <StepsSidebar />
 

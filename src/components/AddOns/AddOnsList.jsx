@@ -9,9 +9,8 @@ function AddOnsList({ addOn }) {
     dispatch(toggleAddon(addOn));
   };
 
-  const isAddonSelected = (addOn) => {
-    return selectedAddons.some((selected) => selected.name === addOn.name);
-  };
+  const isAddonSelected = (addOn) =>
+    selectedAddons.some((selected) => selected.name === addOn.name);
 
   const isSelected = isAddonSelected(addOn);
 

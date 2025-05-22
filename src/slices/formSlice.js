@@ -16,26 +16,26 @@ const initialState = {
     phoneNumber: null,
   },
   plans: [
-    { id: 1, name: "Basic", description: "Simple friend", monthlyPrice: 19, yearlyPrice: 190 },
-    { id: 2, name: "Advanced", description: "Best friend", monthlyPrice: 24, yearlyPrice: 240 },
-    { id: 3, name: "Pro", description: "Boyfriend", monthlyPrice: 29, yearlyPrice: 290 },
+    { id: 1, name: "Basic", description: "", monthlyPrice: 9, yearlyPrice: 90 },
+    { id: 2, name: "Advanced", description: "", monthlyPrice: 19, yearlyPrice: 190 },
+    { id: 3, name: "Pro", description: "", monthlyPrice: 24, yearlyPrice: 240 },
   ],
   addOns: [
     {
-      name: "Virtual love",
-      description: "Occasional virtual hugs and kisses",
-      monthlyPrice: 4,
-      yearlyPrice: 50,
+      name: "Online service",
+      description: "Access to multiplayer games",
+      monthlyPrice: 1,
+      yearlyPrice: 10,
     },
     {
-      name: "Sweetener",
-      description: "Access to sweet messages",
-      monthlyPrice: 3,
-      yearlyPrice: 30,
+      name: "Larger storage",
+      description: "Extra 1TB of cloud save",
+      monthlyPrice: 2,
+      yearlyPrice: 20,
     },
     {
-      name: "Faster replies",
-      description: "Replies are 2x faster",
+      name: "Customizable Profile",
+      description: "Custom theme on your profile",
       monthlyPrice: 2,
       yearlyPrice: 20,
     },
@@ -72,11 +72,17 @@ const formSilce = createSlice({
     setPersonalInfoErrors(state, action) {
       state.personalInfoErrors = action.payload;
     },
+    changePlan(state) {
+      state.step = 2
+    },
     goNext(state) {
       state.step++;
     },
     goBack(state) {
       state.step--;
+    },
+    goTo(state, action) {
+      state.step = action.payload
     },
     confirmForm(state) {
       state.formConfirmed = true;
@@ -84,31 +90,26 @@ const formSilce = createSlice({
   },
 });
 
-// --- Create the Thunk Action Creator ---
 export const validateCurrentStepAndGoNext = createAsyncThunk(
-  "form/validateCurrentStepAndGoNext", // Action type prefix
+  "form/validateCurrentStepAndGoNext",
   async (_, { dispatch, getState }) => {
-    // Thunk arguments: _, { dispatch, getState }
-    const state = getState().form; // Get the form slice state
+    const state = getState().form; 
 
     let isValid = true;
-    let errors = {}; // Object to hold errors for the current step
+    let errors = {};
 
-    // --- Perform Validation Based on Current Step ---
     if (state.step === 1) {
       const personalInfoState = {
-        // Extract relevant state for validation
         name: state.name,
         email: state.email,
         phoneNumber: state.phoneNumber,
       };
-      errors = validatePersonalInfoFields(personalInfoState); // Call the validation function
+      errors = validatePersonalInfoFields(personalInfoState);
       const hasErrors = Object.values(errors).some((error) => error !== null);
       isValid = !hasErrors;
-      dispatch(setPersonalInfoErrors(errors)); // Dispatch action to update error state in Redux
+      dispatch(setPersonalInfoErrors(errors));
     } 
 
-    // --- If the current step is valid, dispatch the action to go to the next step ---
     if (isValid) {
       dispatch(goNext());
     }
@@ -120,11 +121,12 @@ export default formSilce.reducer;
 export const {
   goNext,
   goBack,
-  goToStep,
+  goTo,
   onChange,
   selectPlan,
   toggleBillingCycle,
   toggleAddon,
   confirmForm,
   setPersonalInfoErrors,
+  changePlan,
 } = formSilce.actions;
